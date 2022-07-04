@@ -19,10 +19,26 @@ class Movie {
     this.title = title;
     this.vote_count = vote_count;
     this.vote_average = vote_average;
+    this.images=[];
   }
 
-  async getMovies() {}
+  async getMovieImages() {
+    try {
+      const { data } = await axios.get(
+        `${Info.hostUrl}/${22}/images?api_key=${Info.ApiKey}`
+      );
+      console.log(data);
+      data.backdrops.map((ele) => {
+        this.images.push(ele.file_path)
+      });
+      return this.images;
+    } catch (error) {
+        return this.images;
+    }
+  }
 }
+
+
 
 export class Movies {
   constructor() {
@@ -42,7 +58,6 @@ export class Movies {
 
       return this.movies;
     } catch (error) {
-      console.log(error);
       return this.movies;
     }
   }
