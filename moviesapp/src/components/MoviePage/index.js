@@ -1,57 +1,31 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import "./style.css";
 import { useContext } from "react";
 import { movieContext } from "../../App";
-import { Card } from "react-bootstrap";
-import { Info } from "../../controllers/info";
 import PropTypes from "prop-types";
+import { LocalStorage } from "../../controllers/info";
 
 export const MoviePage = () => {
-  let { currentMovie } = useContext(movieContext);
+  const [currentMovie, setCurrentMovie] = useState(
+    useContext(movieContext).currentMovie
+  );
   useEffect(() => {
     (async () => {
-      if (currentMovie) {
-        await currentMovie.getMovieDetails();
-        await currentMovie.getMovieImages();
-        await currentMovie.getMovieVideos();
+      if (!currentMovie) {
+        const movie = await LocalStorage.getItem({ key: "currentMovie" });
+        setCurrentMovie(movie);
       }
-      console.log(currentMovie);
     })();
   }, []);
 
   return (
     <div>
       <div>
-        {
-          <Card>
-            <YoutubeEmbed embedId="rokGy0huYEA" />
-
-            <Card.Img
-              variant="top"
-              src={`${Info.imagesUrl + currentMovie.poster_path}`}
-            />
-
-            <Card.Body>
-              <div className="card-details-div">
-                <Card.Title>{currentMovie.title}</Card.Title>
-                <h6>{currentMovie.release_date}</h6>
-                <div>
-                  {currentMovie.genre_ids.length ? (
-                    currentMovie.genre_ids.map((genre) => {
-                      return (
-                        <small key={genre + currentMovie.id}>
-                          {genre + ", "}
-                        </small>
-                      );
-                    })
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        }
+        {currentMovie && currentMovie.videos.length ? (
+          <YoutubeEmbed embedId={`${currentMovie.videos[2].key}`} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

@@ -32,6 +32,10 @@ class Movie {
     this.revenue = null;
     this.status = null;
     this.getMovieGenres();
+    this.getMovieReviews();
+    this.getMovieVideos();
+    this.getMovieImages();
+
   }
 
   async getMovieImages() {

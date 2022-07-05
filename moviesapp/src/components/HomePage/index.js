@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Movies } from "../../controllers/movie";
 import { Card } from "react-bootstrap";
-import { Info } from "../../controllers/info";
+import { Info, LocalStorage } from "../../controllers/info";
 import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
 import { movieContext } from "../../App";
@@ -21,8 +21,9 @@ export const HomePage = () => {
   const buildMovieCard = (movie) => {
     return (
       <Card>
-        <Link onClick={()=>{
+        <Link onClick={async ()=>{
           setCurrentMovie(movie)
+          await LocalStorage.setItem({key:"currentMovie",value:movie});
         }} to={`/movie/${movie.id}/${movie.title}`}>
           <Card.Img
             variant="top"
