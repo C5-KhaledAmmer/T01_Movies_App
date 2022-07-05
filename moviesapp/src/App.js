@@ -11,7 +11,7 @@ const App = () => {
      
       // console.log(await movies.movies[3].getMovieImages());
       // console.log(await movies.movies[3].getMovieVideos());
-      console.log(await movies.movies[1].getMovieVideos());
+      console.log(await movies.movies[5].getMovieReviews());
 
     })()
   })
