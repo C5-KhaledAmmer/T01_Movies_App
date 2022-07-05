@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Info } from "./info";
-import{Video} from "../models/video"
-import{Image} from "../models/Image"
-import{Review} from "../models/review"
+import { Video } from "../models/video";
+import { Image } from "../models/Image";
+import { Review } from "../models/review";
+import { Genre } from "../models/genre";
 
 class Movie {
   constructor({
@@ -25,7 +26,11 @@ class Movie {
     this.vote_average = vote_average;
     this.images = [];
     this.videos = [];
-    this.reviews=[];
+    this.reviews = [];
+    this.budget = null;
+    this.production_companies = null;
+    this.revenue = null;
+    this.status = null;
   }
 
   async getMovieImages() {
@@ -34,7 +39,7 @@ class Movie {
         `${Info.hostUrl}/${this.id}}/images?api_key=${Info.ApiKey}`
       );
       data.backdrops.map((ele) => {
-        const image = new Image ({...ele})
+        const image = new Image({ ...ele });
         this.images.push(image);
       });
       return this.images;
@@ -49,7 +54,7 @@ class Movie {
         `${Info.hostUrl}/${this.id}/videos?api_key=${Info.ApiKey}`
       );
       data.results.map((ele) => {
-        const video = new Video ({...ele})
+        const video = new Video({ ...ele });
         this.videos.push(video);
       });
       return this.videos;
@@ -64,7 +69,7 @@ class Movie {
         `${Info.hostUrl}/${this.id}/reviews?api_key=${Info.ApiKey}`
       );
       data.results.map((ele) => {
-        const review = new Review ({...ele})
+        const review = new Review({ ...ele });
         this.reviews.push(review);
       });
       return this.reviews;
@@ -72,8 +77,30 @@ class Movie {
       return this.reviews;
     }
   }
-  
 
+  async getMovieDetails(language = "en-US") {
+    try {
+      const { data } = await axios.get(
+        `${Info.hostUrl}/${this.id}?api_key=${Info.ApiKey}&language=${language}`
+      );
+      data.results.map((ele) => {
+        const review = new Review({ ...ele });
+        this.reviews.push(review);
+      });
+      return this.reviews;
+    } catch (error) {
+      return this.reviews;
+    }
+  }
+
+  getMovieGenres() {
+    const genres = Genre.genres.filter((ele) => {
+      return this.genre_ids.includes(ele.id);
+    });
+    return genres.map((genre) => {
+      return genre.name;
+    });
+  }
 }
 
 export class Movies {
