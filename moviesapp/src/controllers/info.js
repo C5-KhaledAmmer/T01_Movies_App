@@ -1,9 +1,8 @@
 export class Info {
-    static hostUrl = "https://api.themoviedb.org/3/movie";
-    static ApiKey= "1bfa430aada4409bfa6a3c5528128e8a";
-    static imagesUrl= "https://image.tmdb.org/t/p/original//"
-  }
-  
+  static hostUrl = "https://api.themoviedb.org/3/movie";
+  static ApiKey = "1bfa430aada4409bfa6a3c5528128e8a";
+  static imagesUrl = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
+}
 
 export class LocalStorage {
   static async getItem({ key }) {

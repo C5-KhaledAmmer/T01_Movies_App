@@ -19,7 +19,8 @@ class Movie {
     this.title = title;
     this.vote_count = vote_count;
     this.vote_average = vote_average;
-    this.images=[];
+    this.images = [];
+    this.videos = [];
   }
 
   async getMovieImages() {
@@ -27,18 +28,43 @@ class Movie {
       const { data } = await axios.get(
         `${Info.hostUrl}/${22}/images?api_key=${Info.ApiKey}`
       );
-      console.log(data);
       data.backdrops.map((ele) => {
-        this.images.push(ele.file_path)
+        this.images.push(ele.file_path);
       });
       return this.images;
     } catch (error) {
-        return this.images;
+      return this.images;
+    }
+  }
+
+  async getMovieVideos() {
+    try {
+      const { data } = await axios.get(
+        `${Info.hostUrl}/${this.id}/videos?api_key=${Info.ApiKey}`
+      );
+      data.results.map((ele) => {
+        this.videos.push(ele);
+      });
+      return this.videos;
+    } catch (error) {
+      return this.videos;
+    }
+  }
+
+  async getMovieReviews() {
+    try {
+      const { data } = await axios.get(
+        `${Info.hostUrl}/${this.id}/reviews?api_key=${Info.ApiKey}`
+      );
+      data.backdrops.map((ele) => {
+        this.images.push(ele.file_path);
+      });
+      return this.images;
+    } catch (error) {
+      return this.images;
     }
   }
 }
-
-
 
 export class Movies {
   constructor() {

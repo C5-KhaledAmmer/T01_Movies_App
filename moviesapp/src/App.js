@@ -8,9 +8,9 @@ const App = () => {
       const movies = new Movies();
      await movies.getMovies("upcoming");
       console.log(movies.movies);
-      console.log();
-      console.log(await movies.movies[3].getMovieImages());
      
+      // console.log(await movies.movies[3].getMovieImages());
+      console.log(await movies.movies[3].getMovieVideos());
     })()
   })
   return (
