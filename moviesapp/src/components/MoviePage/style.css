@@ -12,3 +12,16 @@
     width: 100%;
     position: absolute;
   }
+
+.movie-images-div{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(5,19%);
+    gap: 1%;
+}
+.movie-images-div img{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4,24%);
+    gap: 1%;
+}

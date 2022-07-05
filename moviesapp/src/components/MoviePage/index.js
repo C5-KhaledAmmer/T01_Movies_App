@@ -3,7 +3,8 @@ import "./style.css";
 import { useContext } from "react";
 import { movieContext } from "../../App";
 import PropTypes from "prop-types";
-import { LocalStorage } from "../../controllers/info";
+import { Info, LocalStorage } from "../../controllers/info";
+import { Carousel } from "react-bootstrap";
 
 export const MoviePage = () => {
   const [currentMovie, setCurrentMovie] = useState(
@@ -18,6 +19,7 @@ export const MoviePage = () => {
     })();
   }, []);
 
+
   return (
     <div>
       <div>
@@ -26,6 +28,16 @@ export const MoviePage = () => {
         ) : (
           <></>
         )}
+
+        <div className="movie-images-div">
+          {currentMovie && currentMovie.images.length ? (
+            currentMovie.images.slice(10, 20).map((image) => {
+              return <img src={Info.imagesUrl + image.file_path} alt="" />;
+            })
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -47,3 +59,4 @@ const YoutubeEmbed = ({ embedId }) => (
 YoutubeEmbed.propTypes = {
   embedId: PropTypes.string.isRequired,
 };
+<Carousel></Carousel>;
