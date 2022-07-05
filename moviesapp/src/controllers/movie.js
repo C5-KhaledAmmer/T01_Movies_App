@@ -101,6 +101,7 @@ class Movie {
     this.genre_ids = genres.map((genre) => {
       return genre.name;
     });
+   
   }
 }
 

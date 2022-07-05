@@ -18,8 +18,12 @@ export const HomePage = () => {
       <Card>
         <Card.Img variant="top" src={`${Info.imagesUrl + movie.poster_path}`} />
         <Card.Body>
-          <Card.Title>{movie.genre_ids[0]}</Card.Title>
-          <Button variant="primary">Go somewhere</Button>
+          <Card.Title>{movie.title}</Card.Title>
+          <h6>{movie.release_date}</h6>
+          {movie.genre_ids.length?movie.genre_ids.map(genre=>{
+            return  <small key={genre + movie.id}>{genre+", "}</small>
+          }):<></>}
+         
         </Card.Body>
       </Card>
     );
@@ -27,6 +31,7 @@ export const HomePage = () => {
   return (
     <div className="main-home-page-div">
       <div className="cards-div">
+        <h1>Action</h1>
         <div  className="inner-cards-div">
         {movies.length ? (
           movies.map((movie) => {
