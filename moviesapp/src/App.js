@@ -10,7 +10,9 @@ const App = () => {
       console.log(movies.movies);
      
       // console.log(await movies.movies[3].getMovieImages());
-      console.log(await movies.movies[3].getMovieVideos());
+      // console.log(await movies.movies[3].getMovieVideos());
+      console.log(await movies.movies[1].getMovieVideos());
+
     })()
   })
   return (

@@ -1,5 +1,9 @@
 import axios from "axios";
 import { Info } from "./info";
+import{Video} from "../models/video"
+import{Image} from "../models/Image"
+import{Review} from "../models/review"
+
 class Movie {
   constructor({
     id,
@@ -21,15 +25,17 @@ class Movie {
     this.vote_average = vote_average;
     this.images = [];
     this.videos = [];
+    this.reviews=[];
   }
 
   async getMovieImages() {
     try {
       const { data } = await axios.get(
-        `${Info.hostUrl}/${22}/images?api_key=${Info.ApiKey}`
+        `${Info.hostUrl}/${this.id}}/images?api_key=${Info.ApiKey}`
       );
       data.backdrops.map((ele) => {
-        this.images.push(ele.file_path);
+        const image = new Image ({...ele})
+        this.images.push(image);
       });
       return this.images;
     } catch (error) {
@@ -43,7 +49,8 @@ class Movie {
         `${Info.hostUrl}/${this.id}/videos?api_key=${Info.ApiKey}`
       );
       data.results.map((ele) => {
-        this.videos.push(ele);
+        const video = new Video ({...ele})
+        this.videos.push(video);
       });
       return this.videos;
     } catch (error) {
@@ -56,14 +63,17 @@ class Movie {
       const { data } = await axios.get(
         `${Info.hostUrl}/${this.id}/reviews?api_key=${Info.ApiKey}`
       );
-      data.backdrops.map((ele) => {
-        this.images.push(ele.file_path);
+      data.results.map((ele) => {
+        const review = new Review ({...ele})
+        this.reviews.push(review);
       });
-      return this.images;
+      return this.reviews;
     } catch (error) {
-      return this.images;
+      return this.reviews;
     }
   }
+  
+
 }
 
 export class Movies {

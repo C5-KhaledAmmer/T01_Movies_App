@@ -1,4 +1,4 @@
-class Video {
+export class Video {
   constructor({ site, type, published_at, key, id }) {
     this.site = site;
     this.type = type;
