@@ -15,7 +15,7 @@
 
 .inner-cards-div img{
     width:100%;
-    height: 80%;
+    height: 70%;
 }
 
 .card-title {
@@ -23,20 +23,20 @@
     text-decoration-skip: inherit;
     overflow: hidden;
     white-space: nowrap;
-    color: rgba(255, 0, 0, 0.804);
+    color: var(--text-color);
     font-weight: 700;
     cursor: pointer;
 }
 .card-details-div{
     display: flex;
+    padding: 5px;
     flex-direction: column;
     gap: 5px;
+    color: var(--text-color2);
+    font-weight: 700;
 }
 .card-title:hover {
     color: var(--text-hover);
-    text-align: center;
-    overflow:visible;
-    white-space: inherit;
 }
 
 

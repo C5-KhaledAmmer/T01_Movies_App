@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Movies } from "../../controllers/movie";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Info } from "../../controllers/info";
 import "./style.css";
+import { Link, useNavigate } from "react-router-dom";
+import { movieContext } from "../../App";
 export const HomePage = () => {
+  const {setCurrentMovie} = useContext(movieContext
+    )
   const [movies, setMovies] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
+
     (async () => {
       const instance = new Movies();
       await instance.getMovies("popular");
@@ -16,10 +21,20 @@ export const HomePage = () => {
   const buildMovieCard = (movie) => {
     return (
       <Card>
-        <Card.Img variant="top" src={`${Info.imagesUrl + movie.poster_path}`} />
+        <Link onClick={()=>{
+          setCurrentMovie(movie)
+        }} to={`/movie/${movie.id}/${movie.title}`}>
+          <Card.Img
+            variant="top"
+            src={`${Info.imagesUrl + movie.poster_path}`}
+          />
+        </Link>
+
         <Card.Body>
           <div className="card-details-div">
-            <Card.Title>{movie.title}</Card.Title>
+            <Link to={`/movie/${movie.id}/${movie.title}`}>
+              <Card.Title>{movie.title}</Card.Title>
+            </Link>
             <h6>{movie.release_date}</h6>
             <div>
               {movie.genre_ids.length ? (

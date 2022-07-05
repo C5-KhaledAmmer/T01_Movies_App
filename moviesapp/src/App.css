@@ -11,11 +11,14 @@
   --first-color: #10141F;
   --second-color: #1B1822;
   --text-color: white;
-  --text-color2: #222630;
+  --text-color2: #5b6379;
   --text-hover: rgb(237, 101, 3);
 }
 
 html {
   background-color: var(--first-color);
   color: var(--text-color);
+}
+a{
+  text-decoration: none;
 }
