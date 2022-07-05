@@ -3,23 +3,18 @@ import "./App.css";
 import { Movies } from "./controllers/movie";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
+import { Genre } from "./models/genre";
 
 const App = () => {
   useEffect(() => {
     (async () => {
-      const movies = new Movies();
-      await movies.getMovies("upcoming");
-      console.log(movies.movies);
-
-      // console.log(await movies.movies[3].getMovieImages());
-      // console.log(await movies.movies[3].getMovieVideos());
-      console.log(await movies.movies[5].getMovieReviews());
+      await Genre.getGenres();
     })();
   });
   return (
     <div className="App">
       <Routes>
-        <Route element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </div>
   );

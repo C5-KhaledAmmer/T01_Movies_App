@@ -31,6 +31,7 @@ class Movie {
     this.production_companies = null;
     this.revenue = null;
     this.status = null;
+    this.getMovieGenres();
   }
 
   async getMovieImages() {
@@ -97,7 +98,7 @@ class Movie {
     const genres = Genre.genres.filter((ele) => {
       return this.genre_ids.includes(ele.id);
     });
-    return genres.map((genre) => {
+    this.genre_ids = genres.map((genre) => {
       return genre.name;
     });
   }
@@ -113,12 +114,12 @@ export class Movies {
       const { data } = await axios.get(
         `${Info.hostUrl}/${category}?api_key=${Info.ApiKey}&language=en-US&page=1`
       );
-
+       
       data.results.map((ele) => {
         const movie = new Movie({ ...ele });
         this.movies.push(movie);
       });
-
+      
       return this.movies;
     } catch (error) {
       return this.movies;
