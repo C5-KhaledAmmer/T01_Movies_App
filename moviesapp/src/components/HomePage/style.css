@@ -1,0 +1,16 @@
+.main-home-page-div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+.inner-cards-div{
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+}
+
+.inner-cards-div img{
+    width: 25%;
+}
+
+
