@@ -5,12 +5,49 @@ import { Info, LocalStorage } from "../../../controllers/info";
 import "./style.css";
 export const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
+  const buildModel = () => {
+    return (
+      <div id="alert">
+        <Modal.Dialog>
+          <Modal.Header closeButton>
+            <Modal.Title>Add To Favorite</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <p>This movie will added into favorite list, are you sure?</p>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button
+              onClick={() => {
+                setShowModel(false);
+              }}
+              variant="secondary"
+            >
+              Close
+            </Button>
+            <Button
+              on
+              Click={async () => {
+                setShowModel(false);
+                SaveInLocalStorage(movie)
+
+              }}
+              variant="primary"
+            >
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </div>
+    );
+  };
   const [showModel, setShowModel] = useState(false);
   const btns = [
     {
       text: "Add To Favorite",
-      onClick: async () => {
-        await SaveInLocalStorage(movie);
+      onClick:() => {
+        setShowModel(true)
       },
     },
     {
@@ -22,6 +59,7 @@ export const MovieCard = ({ movie }) => {
   ];
   return (
     <div className="movie-page-card">
+      {showModel ? buildModel() : <></>}
       {movie.poster_path ? (
         <img src={`${Info.imagesUrl + movie.poster_path}`} />
       ) : (
@@ -98,15 +136,15 @@ export const MovieCard = ({ movie }) => {
           </div>
         </div>
       </Card.Body>
-    
     </div>
   );
 };
 async function SaveInLocalStorage(movie) {
   const movies = await LocalStorage.getItem({ key: "fav-movies" });
+
   if (movies) {
     if (
-      movies.filter((ele) => {
+      !movies.filter((ele) => {
         return ele.id === movie.id;
       }).length
     ) {
