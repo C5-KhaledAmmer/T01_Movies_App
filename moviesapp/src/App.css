@@ -19,6 +19,7 @@ html {
   background-color: var(--first-color);
   color: var(--text-color);
 }
+
 a{
   text-decoration: none;
 }

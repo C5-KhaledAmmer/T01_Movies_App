@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { movieContext } from "../../App";
 import PropTypes from "prop-types";
 import { Info, LocalStorage } from "../../controllers/info";
-import { Card, Carousel } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { MovieCard } from "./MovieCard";
+import { MovieImages } from "./MovieImages";
+import { Button, Modal } from "react-bootstrap";
 
 export const MoviePage = () => {
    const [currentMovie, setCurrentMovie] = useState(
@@ -23,22 +23,33 @@ export const MoviePage = () => {
   return (
     <div>
       <div>
+      {!false ? (
+        <div style={{position:"fixed"}}>
+            <Modal.Dialog>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal title</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <p>Modal body text goes here.</p>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button variant="secondary">Close</Button>
+                <Button variant="primary">Save changes</Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </div>
+      ) : (
+        <></>
+      )}
         {currentMovie && currentMovie.videos.length ? (
           <YoutubeEmbed embedId={`${currentMovie.videos[0].key}`} />
         ) : (
           <></>
         )}
         {currentMovie ? <MovieCard movie={currentMovie}/> : <></>}
-        <h1>IMAGES</h1>
-        <div className="movie-images-div">
-          {currentMovie && currentMovie.images.length ? (
-            currentMovie.images.slice(10, 20).map((image) => {
-              return <img key={image.file_path} src={Info.imagesUrl + image.file_path} alt="" />;
-            })
-          ) : (
-            <></>
-          )}
-        </div>
+        {currentMovie && currentMovie.images.length !== 0?<MovieImages currentMovie={currentMovie}/>:<></>}
       </div>
     </div>
   );

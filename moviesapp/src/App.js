@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/movie/:id/:movieName" element={<MoviePage />} />
         </Routes>
       </movieContext.Provider>
+      
     </div>
   );
 };

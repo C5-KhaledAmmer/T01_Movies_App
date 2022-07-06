@@ -114,10 +114,10 @@ export class Movies {
     this.movies = [];
   }
 
-  async getMovies(category) {
+  async getMovies(category,page=1) {
     try {
       const { data } = await axios.get(
-        `${Info.hostUrl}/${category}?api_key=${Info.ApiKey}&language=en-US&page=1`
+        `${Info.hostUrl}/${category}?api_key=${Info.ApiKey}&language=en-US&page=${page}`
       );
 
       data.results.map((ele) => {

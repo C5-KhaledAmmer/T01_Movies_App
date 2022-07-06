@@ -12,4 +12,13 @@
   width: 100%;
   position: absolute;
 }
-
+.modal-dialog{
+  background-color: rgb(42, 165, 97);
+  position: fixed;
+  z-index: 8;
+  width: 80%;
+}
+.modal-content{
+  background-color: rgb(0, 0, 0);
+  position: fixed;
+}
