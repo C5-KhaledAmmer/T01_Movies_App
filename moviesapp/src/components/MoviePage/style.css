@@ -39,9 +39,10 @@
 .release-votes {
   display: flex;
   margin-top: 10px;
-  justify-content: space-around;
+  /* justify-content: space-between; */
   align-items: center;
-  font-size: 18px;
+  padding: 5px;
+  font-size: 14px;
 }
 
 .movie-page-title{

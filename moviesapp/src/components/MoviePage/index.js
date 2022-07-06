@@ -34,6 +34,7 @@ export const MoviePage = () => {
       }
     })();
   }, []);
+  
   const buildMovieCard = (movie) => {
     return (
       <div className="movie-page-card">
