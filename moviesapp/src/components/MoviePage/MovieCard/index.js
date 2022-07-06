@@ -3,51 +3,47 @@ import { Button, Card, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Info, LocalStorage } from "../../../controllers/info";
 import "./style.css";
+
+export const buildModel = ({ title, body, fCancel, fAccept }) => {
+  return (
+    <div id="alert">
+      <Modal.Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>{body}</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            onClick={fCancel}
+            variant="secondary"
+          >
+            Close
+          </Button>
+          <Button
+            onClick={fAccept}
+            variant="primary"
+          >
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+};
+
 export const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
-  const buildModel = () => {
-    return (
-      <div id="alert">
-        <Modal.Dialog>
-          <Modal.Header closeButton>
-            <Modal.Title>Add To Favorite</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <p>This movie will added into favorite list, are you sure?</p>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button
-              onClick={() => {
-                setShowModel(false);
-              }}
-              variant="secondary"
-            >
-              Close
-            </Button>
-            <Button
-              on
-              Click={async () => {
-                setShowModel(false);
-                SaveInLocalStorage(movie)
-
-              }}
-              variant="primary"
-            >
-              Yes
-            </Button>
-          </Modal.Footer>
-        </Modal.Dialog>
-      </div>
-    );
-  };
+  
   const [showModel, setShowModel] = useState(false);
   const btns = [
     {
       text: "Add To Favorite",
-      onClick:() => {
-        setShowModel(true)
+      onClick: () => {
+        setShowModel(true);
       },
     },
     {
@@ -59,7 +55,21 @@ export const MovieCard = ({ movie }) => {
   ];
   return (
     <div className="movie-page-card">
-      {showModel ? buildModel() : <></>}
+      {showModel ? (
+        buildModel({
+          title: "Add To Favorite",
+          body: "This movie will added into favorite list, are you sure?",
+          fAccept: () => {
+            setShowModel(false);
+          },
+          fCancel: async () => {
+            SaveInLocalStorage(movie);
+            setShowModel(false);
+          },
+        })
+      ) : (
+        <></>
+      )}
       {movie.poster_path ? (
         <img src={`${Info.imagesUrl + movie.poster_path}`} />
       ) : (
