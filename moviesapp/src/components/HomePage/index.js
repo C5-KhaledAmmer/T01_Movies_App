@@ -20,7 +20,7 @@ export const HomePage = () => {
   }, []);
   const buildMovieCard = (movie) => {
     return (
-      <Card>
+      <Card key={movie.title+movie.id+movie.release_date}>
         <Link onClick={async ()=>{
           setCurrentMovie(movie)
           await LocalStorage.setItem({key:"currentMovie",value:movie});

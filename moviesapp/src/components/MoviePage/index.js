@@ -5,16 +5,23 @@ import { movieContext } from "../../App";
 import PropTypes from "prop-types";
 import { Info, LocalStorage } from "../../controllers/info";
 import { Card, Carousel } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const MoviePage = () => {
+  const navigate = useNavigate();
   const btns = [
     {
-      text: "Add To Favorite ♡",
+      text: "Add To Favorite",
       onClick: async () => {
         await SaveInLocalStorage(currentMovie);
       },
     },
-    { text: "Home Page ˂ ", onClick: () => {} },
+    {
+      text: "Home Page ",
+      onClick: () => {
+        navigate("/");
+      },
+    },
   ];
   const [currentMovie, setCurrentMovie] = useState(
     useContext(movieContext).currentMovie
@@ -28,7 +35,6 @@ export const MoviePage = () => {
     })();
   }, []);
   const buildMovieCard = (movie) => {
-    console.log(movie);
     return (
       <div className="movie-page-card">
         {movie.poster_path ? (
@@ -37,69 +43,77 @@ export const MoviePage = () => {
           <></>
         )}
         <Card.Body>
-          <h1>{movie.title}</h1>
-          <br />
-          <p>{movie.overview}</p>
-
-          {movie.poster_path.vote_count >= 0 ? (
-            <div className="release-votes">
-              <h4>{"Release Date: " + movie.release_date}</h4>
-              <h4>{"Votes: " + movie.vote_count}</h4>
-            </div>
-          ) : (
-            <></>
-          )}
-
-          <div className="release-votes">
-            <div className="release-votes">
-              <h6>{"Genres:  "}</h6>
-              {movie.genre_ids.length ? (
-                movie.genre_ids.map((genre) => {
-                  return <small key={genre + movie.id}>{genre + ", "}</small>;
-                })
+          <div className="content-div-movie-page">
+            <div>
+              <h1 className="movie-page-title">{movie.title}</h1>
+              <p className="movie-page-overview">{movie.overview}</p>
+              {movie.poster_path.vote_count >= 0 ? (
+                <div className="release-votes">
+                  <h4>{"Release Date: " + movie.release_date}</h4>
+                  <h4>{"Votes: " + movie.vote_count}</h4>
+                </div>
               ) : (
                 <></>
               )}
+              <div className="release-votes">
+                <div className="release-votes">
+                  <h6>{"Genres:  "}</h6>
+                  {movie.genre_ids.length ? (
+                    movie.genre_ids.map((genre) => {
+                      return (
+                        <small key={genre + movie.id}>{genre + ", "}</small>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                {currentMovie ? (
+                  <h6>{"Status: " + movie.status}</h6>
+                ) : (
+                  <h6>{"Status: " + "Released"}</h6>
+                )}
+
+                {movie && movie.vote_count ? (
+                  <h6>{`Vote Count: ${movie.vote_count}`}</h6>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="release-votes">
+                {movie && movie.budget ? (
+                  <h6>{`Budget: ${movie.budget} $`}</h6>
+                ) : (
+                  <></>
+                )}
+
+                {movie && movie.revenue ? (
+                  <h6>{`Vote Avg: ${movie.revenue} $`}</h6>
+                ) : (
+                  <></>
+                )}
+
+                {movie && movie.vote_average ? (
+                  <h6>{`Vote Avg: ${movie.vote_average}`}</h6>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
-            {currentMovie ? (
-              <h6>{"Status: " + movie.status}</h6>
-            ) : (
-              <h6>{"Status: " + "Released"}</h6>
-            )}
-
-            {movie && movie.vote_count ? (
-              <h6>{`Vote Count: ${movie.vote_count}`}</h6>
-            ) : (
-              <></>
-            )}
+            <div>
+              {btns.map((ele) => {
+                return (
+                  <button
+                    key={ele.text}
+                    className="btns-card"
+                    onClick={ele.onClick}
+                  >
+                    {ele.text}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-
-          <div className="release-votes">
-            {movie && movie.budget ? (
-              <h6>{`Budget: ${movie.budget} $`}</h6>
-            ) : (
-              <></>
-            )}
-
-            {movie && movie.revenue ? (
-              <h6>{`Vote Avg: ${movie.revenue} $`}</h6>
-            ) : (
-              <></>
-            )}
-
-            {movie && movie.vote_average ? (
-              <h6>{`Vote Avg: ${movie.vote_average}`}</h6>
-            ) : (
-              <></>
-            )}
-          </div>
-          {btns.map((ele) => {
-            return (
-              <button className="btns-card" onClick={ele.onClick}>
-                {ele.text}
-              </button>
-            );
-          })}
         </Card.Body>
       </div>
     );
@@ -148,9 +162,11 @@ YoutubeEmbed.propTypes = {
 async function SaveInLocalStorage(currentMovie) {
   const movies = await LocalStorage.getItem({ key: "fav-movies" });
   if (movies) {
-    if (movies.filter((ele) => {
-      return ele.id === currentMovie.id;
-    }).length) {
+    if (
+      movies.filter((ele) => {
+        return ele.id === currentMovie.id;
+      }).length
+    ) {
       movies.push(currentMovie);
       await LocalStorage.setItem({ key: "fav-movies", value: movies });
     }
@@ -158,4 +174,3 @@ async function SaveInLocalStorage(currentMovie) {
     await LocalStorage.setItem({ key: "fav-movies", value: [currentMovie] });
   }
 }
-
