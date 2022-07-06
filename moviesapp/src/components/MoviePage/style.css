@@ -1,27 +1,46 @@
 .video-responsive {
-    overflow: hidden;
-    padding-bottom: 56.25%;
-    position: relative;
-    height: 0;
-  }
-  
-  .video-responsive iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-  }
-
-.movie-images-div{
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(5,19%);
-    gap: 1%;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
 }
-.movie-images-div img{
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(4,24%);
-    gap: 1%;
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.movie-page-card {
+  display: flex;
+  margin: 5px;
+  border: 1px solid white;
+}
+.movie-page-card img {
+  width: 500%;
+  max-width: 200px;
+}
+
+.movie-images-div {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 19%);
+  gap: 1%;
+}
+.movie-images-div img {
+  width: 100%;
+}
+
+.movie-card-details-div1 {
+  display: flex;
+}
+.release-votes {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 20px;
 }

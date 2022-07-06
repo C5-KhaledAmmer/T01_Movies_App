@@ -35,7 +35,7 @@ class Movie {
     this.getMovieReviews();
     this.getMovieVideos();
     this.getMovieImages();
-
+    this.getMovieDetails();
   }
 
   async getMovieImages() {
@@ -88,13 +88,14 @@ class Movie {
       const { data } = await axios.get(
         `${Info.hostUrl}/${this.id}?api_key=${Info.ApiKey}&language=${language}`
       );
-      data.results.map((ele) => {
-        const review = new Review({ ...ele });
-        this.reviews.push(review);
-      });
-      return this.reviews;
+
+      this.budget = data.budget;
+      this.status = data.status;
+      this.revenue = data.revenue;
+      this.production_companies = data.production_companies;
+      return this.movies;
     } catch (error) {
-      return this.reviews;
+      return  this.movies;
     }
   }
 
@@ -105,7 +106,6 @@ class Movie {
     this.genre_ids = genres.map((genre) => {
       return genre.name;
     });
-   
   }
 }
 
@@ -119,12 +119,12 @@ export class Movies {
       const { data } = await axios.get(
         `${Info.hostUrl}/${category}?api_key=${Info.ApiKey}&language=en-US&page=1`
       );
-       
+
       data.results.map((ele) => {
         const movie = new Movie({ ...ele });
         this.movies.push(movie);
       });
-      
+
       return this.movies;
     } catch (error) {
       return this.movies;
