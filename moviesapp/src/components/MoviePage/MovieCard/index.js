@@ -59,10 +59,10 @@ export const MovieCard = ({ movie }) => {
         buildModel({
           title: "Add To Favorite",
           body: "This movie will added into favorite list, are you sure?",
-          fAccept: () => {
+          fCancel: () => {
             setShowModel(false);
           },
-          fCancel: async () => {
+          fAccept: async () => {
             SaveInLocalStorage(movie);
             setShowModel(false);
           },

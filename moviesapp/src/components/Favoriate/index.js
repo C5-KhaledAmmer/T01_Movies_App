@@ -9,6 +9,7 @@ export const Favorite = () => {
   const [movies, setMovies] = useState(null);
   const { setCurrentMovie } = useContext(movieContext);
   const [showModel, setShowModel] = useState(false);
+  const [currentMovieId, setCurrentMovieId] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -23,21 +24,31 @@ export const Favorite = () => {
         buildModel({
           title: "Remove Movie",
           body: "You will remove this movie, are you sure?",
-          fAccept:()=>{},
-          fCancel:()=>{}
+          fAccept: () => {
+            setShowModel(false);
+            deleteFromStorage(movies, setMovies, currentMovieId);
+          },
+          fCancel: () => {
+            setShowModel(false);
+          },
         })
       ) : (
         <></>
       )}
-      {movies ? (
+      {movies && movies.length? (
         movies.map((movie) => {
           return (
             <div className="fav-card-div">
               <div className="close-div">
-                <CloseButton onClick={() => {}} />
+                <CloseButton
+                  onClick={() => {
+                    setShowModel(true);
+                    setCurrentMovieId(movie.id);
+                  }}
+                />
               </div>
 
-              {buildMovieCard(movie, setCurrentMovie)}
+              {buildMovieCard(movie, setCurrentMovie,"f")}
             </div>
           );
         })
@@ -49,3 +60,13 @@ export const Favorite = () => {
     </div>
   );
 };
+async function deleteFromStorage(movies, setMovies, id) {
+    console.log(movies);
+
+    movies = movies.filter((movie) => {
+    return movie.id !== id;
+  });
+  console.log(movies);
+  await LocalStorage.setItem({key:"fav-movies", value:movies});
+  setMovies(movies);
+}

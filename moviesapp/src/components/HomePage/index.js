@@ -8,7 +8,7 @@ import { movieContext } from "../../App";
 export const HomePage = () => {
   const { setCurrentMovie } = useContext(movieContext);
   const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
+ 
   useEffect(() => {
     (async () => {
       const instance = new Movies();
@@ -35,9 +35,9 @@ export const HomePage = () => {
     </div>
   );
 };
-export const buildMovieCard = (movie,setCurrentMovie) => {
+export const buildMovieCard = (movie,setCurrentMovie,key="") => {
   return (
-    <Card key={movie.title + movie.id + movie.release_date}>
+    <Card key={movie.title + movie.id + movie.release_date +key}>
       <Link
         onClick={async () => {
           setCurrentMovie(movie);
@@ -60,7 +60,7 @@ export const buildMovieCard = (movie,setCurrentMovie) => {
           <div>
             {movie.genre_ids.length ? (
               movie.genre_ids.map((genre) => {
-                return <small key={genre + movie.id}>{genre + ", "}</small>;
+                return <small key={genre + movie.id + key}>{genre + ", "}</small>;
               })
             ) : (
               <></>
