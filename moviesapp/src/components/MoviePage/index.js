@@ -7,6 +7,7 @@ import { Info, LocalStorage } from "../../controllers/info";
 import { MovieCard } from "./MovieCard";
 import { MovieImages } from "./MovieImages";
 import { Button, Modal } from "react-bootstrap";
+import { MovieReview } from "./MovieReview";
 
 export const MoviePage = () => {
    const [currentMovie, setCurrentMovie] = useState(
@@ -31,6 +32,9 @@ export const MoviePage = () => {
         {currentMovie ? <MovieCard movie={currentMovie}/> : <></>}
         {
         currentMovie && currentMovie.images.length >= 5?<MovieImages currentMovie={currentMovie}/>:<></>}
+        {currentMovie && currentMovie.reviews.length?
+          <MovieReview  currentMovie={currentMovie} />:<></>
+        }
       </div>
     </div>
   );

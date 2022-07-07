@@ -1,0 +1,22 @@
+.reviews-div {
+  text-align: justify;
+  text-justify: inter-word;
+}
+.review-img-div {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-top: 10px;
+  font-size: 25px;
+  color: rgb(191, 95, 95);
+  text-shadow: 1px 0px 1px black;
+}
+.review-img-div img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.review-created-at {
+  color: rgb(191, 95, 95);
+  text-shadow: 1px 0px 1px black;
+}
