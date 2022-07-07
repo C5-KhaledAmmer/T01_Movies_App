@@ -7,10 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { movieContext } from "../../App";
 export const HomePage = () => {
   const { setCurrentMovie } = useContext(movieContext);
-  const [newMovies, setMovies] = useState([]);
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [topRatedMovies, setTopMovies] = useState([]);
-  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [newMovies, setMovies] = useState();
+  const [popularMovies, setPopularMovies] = useState();
+  const [topRatedMovies, setTopMovies] = useState();
+  const [upcomingMovies, setUpcomingMovies] = useState();
   const navigate = useNavigate();
   const moviesType = [
     { title: "popular", setState: setPopularMovies },
@@ -23,34 +23,50 @@ export const HomePage = () => {
       moviesType.forEach(async (type) => {
         const instance = new Movies();
         await instance.getMovies(type.title);
-        type.setState(instance.movies);
+        type.setState(instance);
       });
     })();
   }, []);
-  const showMore = () => {};
-  const CreateSection = (movies, title) => (
-    <div className="cards-div">
-      <h1 index={title} className="title-section">{title}</h1>
-      <div className="inner-cards-div">
-        {movies.length ? (
-          movies.map((movie) => {
-            return buildMovieCard(movie, setCurrentMovie, "", navigate);
-          })
-        ) : (
-          <></>
-        )}
+  const showMore = async (instance, setState, title) => {
+    title = title.toLowerCase().replaceAll(" ", "_");
+    const newMovies = new Movies(instance.movies);
+    newMovies.page = instance.page + 1;
+    await newMovies.getMovies(title);
+    setState(newMovies);
+  };
+  const CreateSection = (instance, title, setState) => {
+    console.log(instance, title);
+    return (
+      <div className="cards-div">
+        <h1 index={title} className="title-section">
+          {title}
+        </h1>
+        <div className="inner-cards-div">
+          {instance && instance.movies.length ? (
+           instance.movies.map((movie) => {
+              return buildMovieCard(movie, setCurrentMovie, "", navigate);
+            })
+          ) : (
+            <></>
+          )}
+        </div>
+        <button
+          onClick={() => {
+            showMore(instance, setState, title);
+          }}
+          className="show-more-btn"
+        >
+          Show More
+        </button>
       </div>
-      <button onClick={showMore} className="show-more-btn">
-        Show More
-      </button>
-    </div>
-  );
+    );
+  };
   return (
     <div className="main-home-page-div">
-      {CreateSection(newMovies, "Now Playing")}
-      {CreateSection(topRatedMovies, "Top Rated")}
-      {CreateSection(popularMovies, "popular")}
-      {CreateSection(upcomingMovies, "upcoming")}
+      {CreateSection(newMovies, "Now Playing", setMovies)}
+      {CreateSection(topRatedMovies, "Top Rated", setTopMovies)}
+      {CreateSection(popularMovies, "popular", setPopularMovies)}
+      {CreateSection(upcomingMovies, "upcoming", setUpcomingMovies)}
     </div>
   );
 };
