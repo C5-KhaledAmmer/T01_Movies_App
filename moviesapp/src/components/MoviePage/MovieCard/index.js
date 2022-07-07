@@ -17,16 +17,10 @@ export const buildModel = ({ title, body, fCancel, fAccept }) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
-            onClick={fCancel}
-            variant="secondary"
-          >
+          <Button onClick={fCancel} variant="secondary">
             Close
           </Button>
-          <Button
-            onClick={fAccept}
-            variant="primary"
-          >
+          <Button onClick={fAccept} variant="primary">
             Yes
           </Button>
         </Modal.Footer>
@@ -37,7 +31,7 @@ export const buildModel = ({ title, body, fCancel, fAccept }) => {
 
 export const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
-  
+
   const [showModel, setShowModel] = useState(false);
   const btns = [
     {

@@ -35,15 +35,14 @@ export const HomePage = () => {
     setState(newMovies);
   };
   const CreateSection = (instance, title, setState) => {
-    console.log(instance, title);
     return (
       <div className="cards-div">
-        <h1 index={title} className="title-section">
-          {title}
-        </h1>
+        <section id={title}>
+          <h1 className="title-section">{title}</h1>
+        </section>
         <div className="inner-cards-div">
           {instance && instance.movies.length ? (
-           instance.movies.map((movie) => {
+            instance.movies.map((movie) => {
               return buildMovieCard(movie, setCurrentMovie, "", navigate);
             })
           ) : (
@@ -65,8 +64,8 @@ export const HomePage = () => {
     <div className="main-home-page-div">
       {CreateSection(newMovies, "Now Playing", setMovies)}
       {CreateSection(topRatedMovies, "Top Rated", setTopMovies)}
-      {CreateSection(popularMovies, "popular", setPopularMovies)}
-      {CreateSection(upcomingMovies, "upcoming", setUpcomingMovies)}
+      {CreateSection(popularMovies, "Popular", setPopularMovies)}
+      {CreateSection(upcomingMovies, "Upcoming", setUpcomingMovies)}
     </div>
   );
 };

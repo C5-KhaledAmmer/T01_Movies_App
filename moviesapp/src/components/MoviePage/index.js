@@ -21,16 +21,16 @@ export const MoviePage = () => {
     })();
   }, []);
   return (
-    <div>
-      <div>
-     
+    <div >
+      <div className="movie-page">
         {currentMovie && currentMovie.videos.length ? (
           <YoutubeEmbed embedId={`${currentMovie.videos[0].key}`} />
         ) : (
           <></>
         )}
         {currentMovie ? <MovieCard movie={currentMovie}/> : <></>}
-        {currentMovie && currentMovie.images.length !== 0?<MovieImages currentMovie={currentMovie}/>:<></>}
+        {
+        currentMovie && currentMovie.images.length >= 5?<MovieImages currentMovie={currentMovie}/>:<></>}
       </div>
     </div>
   );

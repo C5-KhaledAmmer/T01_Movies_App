@@ -4,9 +4,9 @@ import { Info } from "../../../controllers/info";
 export const MovieImages = ({ currentMovie }) => {
   return (
     <div>
-      <h1>IMAGES</h1>
+      <h1 className="imagesSection">Movie Images</h1>
       <div className="movie-images-div">
-        {currentMovie.images.slice(10, 20).map((image) => {
+        {currentMovie.images.slice(0,10).map((image) => {
           return (
             <img
               key={image.file_path}

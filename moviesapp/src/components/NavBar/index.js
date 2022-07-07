@@ -9,20 +9,13 @@ export const NavBar = () => {
   return (
     <Navbar bg="dark" expand="lg">
       <Navbar.Brand href="/">Movies</Navbar.Brand>
-    
-          <Nav.Link href="/Favorite">Fav</Nav.Link>
-          <Nav.Link href="#link">Link</Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              FAv
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
+          <Nav.Link href="/#Now Playing">Now Playing</Nav.Link>
+          <Nav.Link href="/#Top Rated">Top Rated</Nav.Link>
+          <Nav.Link href="/#Popular">Popular</Nav.Link>
+          <Nav.Link href="/#Upcoming">Upcoming</Nav.Link>
+          
+          <Nav.Link href="/Favorite">Favorite</Nav.Link>
+      
        
   
     </Navbar>
