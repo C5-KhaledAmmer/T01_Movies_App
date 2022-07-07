@@ -12,8 +12,6 @@
   color: red;
   font-weight: 700;
   cursor: pointer;
-  text-decoration: none;
-  text-decoration: none;
   border-bottom: 0;
   font-size: 110%;
 
@@ -45,7 +43,7 @@
   column-gap: 2%;
   padding-left:2.5%;
   padding-right:2.5%;
-  
+  color: red;
 }
 
 .show-more-btn{
@@ -68,10 +66,8 @@
   font-weight: 700;
   
 }
-.card-title {
-  text-decoration: none;  
-}
-.card-title:hover {
+
+.inner-cards-div .card-title:hover {
   color:var(--text-color)
 }
 

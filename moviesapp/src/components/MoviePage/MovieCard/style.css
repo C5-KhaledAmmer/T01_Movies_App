@@ -42,19 +42,16 @@
   padding: 5px;
   margin: 2px;
 }
-.span-card-subtitle{
+.span-card-subtitle {
   color: red;
   font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
-
+  font-family: "Times New Roman", Times, serif;
 }
-.card-subtitle{
-  color:white;
-  font-size:14px;
-  font-family: 'Times New Roman', Times, serif;
-
+.card-subtitle {
+  color: white;
+  font-size: 14px;
+  font-family: "Times New Roman", Times, serif;
 }
-
 
 .movie-page-title {
   padding: 10px;
@@ -100,11 +97,16 @@
   width: 100vw;
   left: 0%;
   height: 100vw;
-
+  color: black;
   justify-content: center;
   align-items: center;
 }
-
+#alert .modal-header {
+  color: black;
+}
+#alert .modal-body {
+  color: black;
+}
 .imagesSection {
   text-align: start;
   color: red;

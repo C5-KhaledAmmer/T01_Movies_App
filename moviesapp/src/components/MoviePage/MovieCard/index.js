@@ -1,33 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Info, LocalStorage } from "../../../controllers/info";
 import "./style.css";
 
-export const buildModel = ({ title, body, fCancel, fAccept }) => {
-  return (
-    <div id="alert">
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
 
-        <Modal.Body>
-          <p>{body}</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button onClick={fCancel} variant="secondary">
-            Close
-          </Button>
-          <Button onClick={fAccept} variant="primary">
-            Yes
-          </Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </div>
-  );
-};
 
 export const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -182,3 +159,27 @@ async function SaveInLocalStorage(movie) {
     await LocalStorage.setItem({ key: "fav-movies", value: [movie] });
   }
 }
+export const buildModel = ({ title, body, fCancel, fAccept }) => {
+  return (
+    <div id="alert">
+      <Modal.Dialog>
+      <Modal.Header >
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>{body}</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={title.includes("A")?fCancel:fAccept} variant="danger">
+            {title.includes("A")?"Close":"Remove"}
+          </Button>
+          <Button onClick={!title.includes("A")?fCancel:fAccept} variant="success">
+           {title.includes("A")?"Add":"Close"} 
+          </Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+};

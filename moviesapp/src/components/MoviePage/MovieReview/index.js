@@ -6,9 +6,13 @@ import "./style.css";
 export const MovieReview = ({ currentMovie }) => {
   const variant = "dark";
   const buildReview = (review) => {
-    const imgUrl = review.avatar_path.includes("http")
-      ? `${review.avatar_path.slice(1)}`
-      : `${Info.imagesUrl + review.avatar_path}`;
+    let imgUrl = "https://bitsofco.de/content/images/2018/12/Screenshot-2018-12-16-at-21.06.29.png";
+    if (review.avatar_path) {
+      imgUrl = review.avatar_path.includes("http")
+        ? `${review.avatar_path.slice(1)}`
+        : `${Info.imagesUrl + review.avatar_path}`;
+    }
+
     return (
       <Card
         bg={variant.toLowerCase()}
