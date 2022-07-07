@@ -86,7 +86,7 @@ export const buildMovieCard = (movie, setCurrentMovie, key = "", navigate) => {
         <div className="card-details-div">
           <Card.Title
             onClick={() => {
-              navigate("/movie/${movie.id}/${movie.title}");
+              navigate(`/movie/${movie.id}/${movie.title}`);
             }}
           >
             {movie.title}
@@ -95,9 +95,14 @@ export const buildMovieCard = (movie, setCurrentMovie, key = "", navigate) => {
           <h6>{movie.release_date}</h6>
           <div>
             {movie.genre_ids.length ? (
-              movie.genre_ids.map((genre) => {
+              movie.genre_ids.map((genre,index) => {
                 return (
-                  <small key={genre + movie.id + key}>{genre + ", "}</small>
+                  <small  key={genre + movie.id}>
+                  {genre +
+                    `${
+                      index + 1 !== movie.genre_ids.length ? ", " : " "
+                    }`}
+                </small>
                 );
               })
             ) : (

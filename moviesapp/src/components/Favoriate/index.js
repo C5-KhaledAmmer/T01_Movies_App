@@ -16,8 +16,10 @@ export const Favorite = () => {
   useEffect(() => {
     (async () => {
       const movies = await LocalStorage.getItem({ key: "fav-movies" });
+      console.log(movies);
       setMovies(movies);
     })();
+    
   }, []);
 
   return (
