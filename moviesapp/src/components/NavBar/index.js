@@ -3,12 +3,11 @@ import {
   Nav,
   Navbar,
   NavDropdown,
-  Offcanvas,
 } from "react-bootstrap";
 
 export const NavBar = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" expand="lg">
       <Navbar.Brand href="/">Movies</Navbar.Brand>
     
           <Nav.Link href="/Favorite">Fav</Nav.Link>

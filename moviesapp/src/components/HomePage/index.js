@@ -7,37 +7,56 @@ import { Link, useNavigate } from "react-router-dom";
 import { movieContext } from "../../App";
 export const HomePage = () => {
   const { setCurrentMovie } = useContext(movieContext);
-  const [movies, setMovies] = useState([]);
- 
+  const [newMovies, setMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const navigate = useNavigate();
+  const moviesType = [
+    { title: "popular", setState: setPopularMovies },
+    { title: "upcoming", setState: setUpcomingMovies },
+    { title: "top_rated", setState: setTopMovies },
+    { title: "now_playing", setState: setMovies },
+  ];
   useEffect(() => {
     (async () => {
-      const instance = new Movies();
-      await instance.getMovies("popular");
-      setMovies(instance.movies);
+      moviesType.forEach(async (type) => {
+        const instance = new Movies();
+        await instance.getMovies(type.title);
+        type.setState(instance.movies);
+      });
     })();
   }, []);
-  
+  const showMore = () => {};
+  const CreateSection = (movies, title) => (
+    <div className="cards-div">
+      <h1 index={title} className="title-section">{title}</h1>
+      <div className="inner-cards-div">
+        {movies.length ? (
+          movies.map((movie) => {
+            return buildMovieCard(movie, setCurrentMovie, "", navigate);
+          })
+        ) : (
+          <></>
+        )}
+      </div>
+      <button onClick={showMore} className="show-more-btn">
+        Show More
+      </button>
+    </div>
+  );
   return (
     <div className="main-home-page-div">
-      <div className="cards-div">
-        <h1>Action</h1>
-        <div className="inner-cards-div">
-          {movies.length ? (
-            movies.map((movie) => {
-              return buildMovieCard(movie,setCurrentMovie);
-            })
-          ) : (
-            <></>
-          )}
-        </div>
-        <button>Show Mo</button>
-      </div>
+      {CreateSection(newMovies, "Now Playing")}
+      {CreateSection(topRatedMovies, "Top Rated")}
+      {CreateSection(popularMovies, "popular")}
+      {CreateSection(upcomingMovies, "upcoming")}
     </div>
   );
 };
-export const buildMovieCard = (movie,setCurrentMovie,key="") => {
+export const buildMovieCard = (movie, setCurrentMovie, key = "", navigate) => {
   return (
-    <Card key={movie.title + movie.id + movie.release_date +key}>
+    <Card key={movie.title + movie.id + movie.release_date + key}>
       <Link
         onClick={async () => {
           setCurrentMovie(movie);
@@ -45,22 +64,26 @@ export const buildMovieCard = (movie,setCurrentMovie,key="") => {
         }}
         to={`/movie/${movie.id}/${movie.title}`}
       >
-        <Card.Img
-          variant="top"
-          src={`${Info.imagesUrl + movie.poster_path}`}
-        />
+        <Card.Img variant="top" src={`${Info.imagesUrl + movie.poster_path}`} />
       </Link>
 
       <Card.Body>
         <div className="card-details-div">
-          <Link to={`/movie/${movie.id}/${movie.title}`}>
-            <Card.Title>{movie.title}</Card.Title>
-          </Link>
+          <Card.Title
+            onClick={() => {
+              navigate("/movie/${movie.id}/${movie.title}");
+            }}
+          >
+            {movie.title}
+          </Card.Title>
+
           <h6>{movie.release_date}</h6>
           <div>
             {movie.genre_ids.length ? (
               movie.genre_ids.map((genre) => {
-                return <small key={genre + movie.id + key}>{genre + ", "}</small>;
+                return (
+                  <small key={genre + movie.id + key}>{genre + ", "}</small>
+                );
               })
             ) : (
               <></>

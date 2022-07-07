@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CloseButton, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { movieContext } from "../../App";
 import { LocalStorage } from "../../controllers/info";
 import { buildMovieCard } from "../HomePage";
 import { buildModel } from "../MoviePage/MovieCard";
 import "./style.css";
 export const Favorite = () => {
+  const navigate = useNavigate();
   const [movies, setMovies] = useState(null);
   const { setCurrentMovie } = useContext(movieContext);
   const [showModel, setShowModel] = useState(false);
@@ -35,7 +37,7 @@ export const Favorite = () => {
       ) : (
         <></>
       )}
-      {movies && movies.length? (
+      {movies && movies.length ? (
         movies.map((movie) => {
           return (
             <div className="fav-card-div">
@@ -48,7 +50,7 @@ export const Favorite = () => {
                 />
               </div>
 
-              {buildMovieCard(movie, setCurrentMovie,"f")}
+              {buildMovieCard(movie, setCurrentMovie, "f", navigate)}
             </div>
           );
         })
@@ -61,12 +63,9 @@ export const Favorite = () => {
   );
 };
 async function deleteFromStorage(movies, setMovies, id) {
-    console.log(movies);
-
-    movies = movies.filter((movie) => {
+  movies = movies.filter((movie) => {
     return movie.id !== id;
   });
-  console.log(movies);
-  await LocalStorage.setItem({key:"fav-movies", value:movies});
+  await LocalStorage.setItem({ key: "fav-movies", value: movies });
   setMovies(movies);
 }

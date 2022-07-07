@@ -18,8 +18,11 @@
 html {
   background-color: var(--first-color);
   color: var(--text-color);
+  text-decoration: none;
+
 }
 
 a{
   text-decoration: none;
+  text-shadow:1px 1px 1px #10141F;
 }
