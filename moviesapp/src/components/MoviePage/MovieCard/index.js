@@ -69,77 +69,100 @@ export const MovieCard = ({ movie }) => {
       ) : (
         <></>
       )}
-      <Card.Body>
-        <div className="content-div-movie-page">
-          <div>
-            <h1 className="movie-page-title">{movie.title}</h1>
-            <p className="movie-page-overview">{movie.overview}</p>
-            {movie.vote_count >= 0 ? (
-              <div className="release-votes">
-                <h4>{"Release Date: " + movie.release_date}</h4>
-                <h4>{"Votes: " + movie.vote_count}</h4>
-              </div>
-            ) : (
-              <></>
-            )}
+
+      <div className="content-div-movie-page">
+        <div>
+          <h1 className="movie-page-title">{movie.title}</h1>
+          <p className="movie-page-overview">{movie.overview}</p>
+          {movie.release_date ? (
             <div className="release-votes">
-              <div className="release-votes">
-                <h6>{"Genres:  "}</h6>
+              <h4>
+                <span className="span-card-subtitle">{"Genres:  "}</span>
                 {movie.genre_ids.length ? (
-                  movie.genre_ids.map((genre) => {
-                    return <small key={genre + movie.id}>{genre + ", "}</small>;
+                  movie.genre_ids.map((genre, index) => {
+                    return (
+                      <small className="card-subtitle" key={genre + movie.id}>
+                        {genre +
+                          `${
+                            index + 1 !== movie.genre_ids.length ? ", " : " "
+                          }`}
+                      </small>
+                    );
                   })
                 ) : (
                   <></>
                 )}
-              </div>
-              {movie ? (
-                <h6>{"Status: " + movie.status}</h6>
-              ) : (
-                <h6>{"Status: " + "Released"}</h6>
-              )}
-
-              {movie && movie.vote_count ? (
-                <h6>{`Vote Count: ${movie.vote_count}`}</h6>
-              ) : (
-                <></>
-              )}
+              </h4>
+              <h4 className="card-subtitle">
+                <span className="span-card-subtitle">{"Release Date: "}</span>
+                {movie.release_date}
+              </h4>
             </div>
-            <div className="release-votes">
-              {movie && movie.budget ? (
-                <h6>{`Budget: ${movie.budget} $`}</h6>
-              ) : (
-                <></>
-              )}
+          ) : (
+            <></>
+          )}
 
-              {movie && movie.revenue ? (
-                <h6>{`Vote Avg: ${movie.revenue} $`}</h6>
-              ) : (
-                <></>
-              )}
+          <div className="release-votes">
+            {movie && movie.budget ? (
+              <h6>
+                <span className="span-card-subtitle">{"Budget: "}</span>
+                {movie.budget + " $"}
+              </h6>
+            ) : (
+              <></>
+            )}
 
-              {movie && movie.vote_average ? (
-                <h6>{`Vote Avg: ${movie.vote_average}`}</h6>
-              ) : (
-                <></>
-              )}
-            </div>
+            {movie && movie.revenue ? (
+              <h6>
+                <span className="span-card-subtitle">{"Revenue: "}</span>
+                {movie.revenue + " $"}
+              </h6>
+            ) : (
+              <></>
+            )}
           </div>
-          <div>
-            {btns.map((ele) => {
-              return (
-                <button
-                  key={ele.text}
-                  className="btns-card"
-                  onClick={ele.onClick}
-                >
-                  {ele.text}
-                </button>
-              );
-            })}
+          <div className="release-votes">
+            {movie ? (
+              <h6>
+                <span className="span-card-subtitle">{"Status: "}</span>
+                {movie.status ? movie.status : "Released"}
+              </h6>
+            ) : (
+              <></>
+            )}
+
+            {movie && movie.vote_count ? (
+              <h6>
+                <span className="span-card-subtitle">{"Vote Count: "}</span>
+                {movie.vote_count}
+              </h6>
+            ) : (
+              <></>
+            )}
+            {movie && movie.vote_average ? (
+              <h6>
+                <span className="span-card-subtitle">{"Vote Avg: "}</span>
+                {movie.vote_average}
+              </h6>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
-      </Card.Body>
+        <div>
+          {btns.map((ele) => {
+            return (
+              <button
+                key={ele.text}
+                className="btns-card"
+                onClick={ele.onClick}
+              >
+                {ele.text}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

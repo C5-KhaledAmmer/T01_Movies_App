@@ -1,4 +1,4 @@
-.movie-page{
+.movie-page {
   display: flex;
   flex-direction: column;
   /* align-items: center;
@@ -21,8 +21,6 @@
   max-width: 200px;
 }
 
-
-
 .movie-images-div {
   display: grid;
   width: 100%;
@@ -38,12 +36,25 @@
 }
 .release-votes {
   display: flex;
-  margin-top: 10px;
+  /* background-color: brown; */
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  font-size: 14px;
+  margin: 2px;
 }
+.span-card-subtitle{
+  color: red;
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+.card-subtitle{
+  color:white;
+  font-size:18px;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
 
 .movie-page-title {
   padding: 10px;
@@ -82,19 +93,19 @@
   font-weight: 700;
 }
 
-.alert{
+.alert {
   display: flex;
   position: fixed;
   background-color: aliceblue;
   width: 100vw;
   left: 0%;
   height: 100vw;
- 
+
   justify-content: center;
   align-items: center;
 }
 
-.imagesSection{
+.imagesSection {
   text-align: start;
   color: red;
   padding: 5px;
