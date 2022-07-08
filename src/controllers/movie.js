@@ -27,6 +27,7 @@ class Movie {
     this.images = [];
     this.videos = [];
     this.reviews = [];
+    this.similarMovies= [];
     this.budget = null;
     this.production_companies = null;
     this.revenue = null;
@@ -36,6 +37,7 @@ class Movie {
     this.getMovieVideos();
     this.getMovieImages();
     this.getMovieDetails();
+    // this.getSimilarMovie();
   }
 
   async getMovieImages() {
@@ -80,6 +82,21 @@ class Movie {
       return this.reviews;
     } catch (error) {
       return this.reviews;
+    }
+  }
+
+  async getSimilarMovie() {
+    try {
+      const { data } = await axios.get(
+        `${Info.hostUrl}/${this.id}/similar?api_key=${Info.ApiKey}`
+      );
+      data.results.map((ele) => {
+        const movie = new Movie({ ...ele });
+        this.similarMovies.push(movie);
+      });
+      // return this.similarMovies;
+    } catch (error) {
+      return this.similarMovies;
     }
   }
 

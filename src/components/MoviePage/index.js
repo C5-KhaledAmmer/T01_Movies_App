@@ -8,6 +8,7 @@ import { MovieCard } from "./MovieCard";
 import { MovieImages } from "./MovieImages";
 import { Button, Modal } from "react-bootstrap";
 import { MovieReview } from "./MovieReview";
+import { SimilarMovies } from "./SimillarMovies";
 
 export const MoviePage = () => {
    const [currentMovie, setCurrentMovie] = useState(
@@ -35,6 +36,10 @@ export const MoviePage = () => {
         {currentMovie && currentMovie.reviews.length?
           <MovieReview  currentMovie={currentMovie} />:<></>
         }
+        {currentMovie?
+          <SimilarMovies currentMovie={currentMovie} />:<></>
+        }
+        
       </div>
     </div>
   );
