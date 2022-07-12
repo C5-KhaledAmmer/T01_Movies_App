@@ -142,7 +142,7 @@ export class Movies {
         const movie = new Movie({ ...ele });
         this.movies.push(movie);
       });
-
+      
       return this.movies;
     } catch (error) {
       return this.movies;

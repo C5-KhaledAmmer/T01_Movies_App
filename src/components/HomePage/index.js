@@ -20,10 +20,12 @@ export const HomePage = () => {
   ];
   useEffect(() => {
     (async () => {
+      
       moviesType.forEach(async (type) => {
         const instance = new Movies();
         await instance.getMovies(type.title);
         type.setState(instance);
+        console.log(instance);
       });
     })();
   }, []);
