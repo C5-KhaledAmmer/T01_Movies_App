@@ -19,12 +19,13 @@
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.544);
   height: 100vh;
-  top: 0;
-  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
 }
 #alert div{
   text-align: left;

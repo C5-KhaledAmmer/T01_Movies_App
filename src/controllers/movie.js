@@ -133,7 +133,6 @@ export class Movies {
   }
 
   async getMovies(category) {
-    console.log(category,this.page);
     try {
       const { data } = await axios.get(
         `${Info.hostUrl}/${category}?api_key=${Info.ApiKey}&language=en-US&page=${this.page}`

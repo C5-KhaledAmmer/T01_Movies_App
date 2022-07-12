@@ -25,7 +25,7 @@ export const SimilarMovies = ({currentMovie}) => {
           return (
             <div className="fav-card-div">
 
-              {buildMovieCard(movie, setCurrentMovie, "f", navigate)}
+              {buildMovieCard(movie, setCurrentMovie, "cn", navigate)}
             </div>
           );
         })
